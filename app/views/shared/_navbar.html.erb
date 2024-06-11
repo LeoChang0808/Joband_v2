@@ -1,6 +1,19 @@
-<div class="flex items-center w-full h-20 bg-midnight">
-    <%= link_to root_path, class:"w-10 m-5" do %>
-        <%= File.read('app/assets/images/logo.svg').html_safe %>
-    <% end %>
-    <%= link_to "Joband", root_path, class:"w-10 text-white" %>
+<div class="flex items-center justify-between w-full h-20 bg-midnight">
+    <div class="flex items-center w-auto">
+        <%= link_to root_path, class:"w-10 m-5" do %>
+            <%= File.read('app/assets/images/logo.svg').html_safe %>
+        <% end %>
+        <%= link_to "Joband", root_path, class:"text-white" %>
+    </div>
+    <div>
+		<% if user_signed_in? %>
+            <div class="text-white">
+                <% current_user.email %>
+                <%= link_to '登出', destroy_user_session_path, data: { turbo_method: 'delete' }, class: "text-white m-5" %>
+            </div>
+		<% else %>
+			<%= link_to '註冊', new_user_registration_path, class: "text-white m-5" %>
+			<%= link_to '登入', new_user_session_path, class: "text-white m-5" %>
+		<% end %>
+	</div>
 </div>
